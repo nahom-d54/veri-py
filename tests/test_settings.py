@@ -1,9 +1,6 @@
-from veri_py.core.config import VerifierSettings
+from veri_py.core.config import DirectServiceProxyMode, VerifierSettings
 
 
-def test_fallback_proxy_urls_parsing() -> None:
-    settings = VerifierSettings(FALLBACK_PROXIES=" https://a.example/verify?reference= , https://b.example/verify?reference= ")
-    assert settings.fallback_proxy_urls == [
-        "https://a.example/verify?reference=",
-        "https://b.example/verify?reference=",
-    ]
+def test_direct_service_proxy_mode_from_env() -> None:
+    settings = VerifierSettings(VERI_DIRECT_SERVICE_PROXY_MODE="retry_with_proxy")
+    assert settings.direct_service_proxy_mode == DirectServiceProxyMode.RETRY_WITH_PROXY

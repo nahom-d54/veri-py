@@ -33,9 +33,6 @@ class VerifierSettings(BaseSettings):
         alias="VERI_DIRECT_SERVICE_PROXY_MODE",
     )
 
-    skip_primary_verification: bool = Field(default=False, alias="SKIP_PRIMARY_VERIFICATION")
-    fallback_proxies: str = Field(default="", alias="FALLBACK_PROXIES")
-
     telebirr_primary_base_url: str = Field(
         default="https://transactioninfo.ethiotelecom.et/receipt/",
         alias="TELEBIRR_PRIMARY_BASE_URL",
@@ -76,8 +73,3 @@ class VerifierSettings(BaseSettings):
         case_sensitive=False,
         extra="ignore",
     )
-
-    @property
-    def fallback_proxy_urls(self) -> list[str]:
-        """Return normalized fallback proxy URL list from comma-separated env value."""
-        return [url.strip() for url in self.fallback_proxies.split(",") if url.strip()]

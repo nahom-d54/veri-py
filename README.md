@@ -169,13 +169,6 @@ Settings are defined in [`VerifierSettings`](https://github.com/Vixen878/verifie
 | `VERI_PROXY_URL` | *(empty)* | HTTP(S) or SOCKS proxy URL for **verification** traffic (install `veri-py[socks]` for SOCKS). |
 | `VERI_DIRECT_SERVICE_PROXY_MODE` | `always_proxy` | `always_proxy` or `retry_with_proxy`. See [Networking and proxies](#networking-and-proxies). |
 
-#### Telebirr-specific
-
-| Variable | Default | Description |
-|----------|---------|---------------|
-| `SKIP_PRIMARY_VERIFICATION` | `false` | If `true`, skip the Ethio Telecom primary receipt URL before fallbacks. |
-| `FALLBACK_PROXIES` | *(empty)* | Comma-separated **base URLs** of alternate receipt endpoints (Telebirr only), separate from `VERI_PROXY_URL`. |
-
 #### Provider base URLs
 
 Override only if endpoints change or you use test doubles.
@@ -207,13 +200,11 @@ Override only if endpoints change or you use test doubles.
 
 ## Networking and proxies
 
-Three mechanisms interact; they are **not** interchangeable:
+Two mechanisms interact; they are **not** interchangeable:
 
 1. **`VERI_PROXY_URL` + `VERI_DIRECT_SERVICE_PROXY_MODE`** — Applies to **httpx** traffic to banks/M-Pesa/etc., and to **Playwright** when browser fallback runs. **Does not** apply to the OpenAI SDK used for `verify_image`.
 
-2. **`FALLBACK_PROXIES`** — Telebirr-only: alternate **receipt URLs** tried when the primary page does not yield a valid receipt (or when primary is skipped).
-
-3. **Vision** — Uses the default OpenAI client connection to `VERI_OPENAI_BASE_URL` (no package-level HTTP proxy).
+2. **Vision** — Uses the default OpenAI client connection to `VERI_OPENAI_BASE_URL` (no package-level HTTP proxy).
 
 ### `DirectServiceProxyMode`
 
@@ -237,7 +228,7 @@ M-Pesa uses the **primary** endpoint only; if it fails, the service surfaces an 
 | Provider | Behavior |
 |----------|----------|
 | **CBE** | Fetches a PDF by reference + account suffix; parses text. Optional Playwright fallback if `CBE_BROWSER_FALLBACK` and `[browser]` installed. |
-| **Telebirr** | Primary HTML/JSON flow; optional comma-separated `FALLBACK_PROXIES` bases; `SKIP_PRIMARY_VERIFICATION` to force fallback-only scenarios. |
+| **Telebirr** | Primary Ethio Telecom receipt HTML page. |
 | **Dashen** | PDF download with internal retry loop. |
 | **Abyssinia** | JSON API with field mapping to `VerifyResult`. |
 | **CBE Birr** | PDF with bearer `api_key` per request. |
