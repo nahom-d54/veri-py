@@ -1,0 +1,72 @@
+name: Bug report
+description: Report incorrect behavior, crashes, or verification failures
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem. Please include as much detail as you can (without sharing secrets or private receipt data).
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: What did you expect, and what actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: Minimal code snippet, API calls, or steps. Redact API keys and account details.
+      placeholder: |
+        ```python
+        from veri_py import AsyncVerifierClient
+        ...
+        ```
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: veri-py version
+      description: Output of `pip show veri-py` or the version from `pyproject.toml` if installed editable.
+      placeholder: e.g. 0.1.0
+    validations:
+      required: false
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: e.g. 3.12.7
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area (if known)
+      options:
+        - General / unsure
+        - AsyncVerifierClient / VerifierClient
+        - CBE
+        - Telebirr
+        - M-Pesa / Dashen / Abyssinia / CBE Birr
+        - Image / vision (OpenAI)
+        - HTTP / proxy / TLS
+        - Configuration
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or traceback
+      description: Paste errors or stack traces. Remove sensitive values.
+      render: shell
+    validations:
+      required: false

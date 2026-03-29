@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest an enhancement or new capability
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem you are trying to solve and how this project could help.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What is hard, missing, or inconsistent today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How would you like it to work (API shape, config, behavior)?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Unsure
+        - Public API / clients
+        - Provider (CBE, Telebirr, etc.)
+        - Image / vision
+        - Docs / packaging
+    validations:
+      required: false
