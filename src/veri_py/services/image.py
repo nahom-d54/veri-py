@@ -5,6 +5,7 @@ from __future__ import annotations
 import base64
 
 from openai import AsyncOpenAI, OpenAI
+from openai.types.chat import ParsedChatCompletion
 
 from ..core.config import VerifierSettings
 from ..exceptions import ConfigurationError
@@ -119,8 +120,8 @@ class ImageService:
         return self._parsed_or_raise(completion)
 
     @staticmethod
-    def _parsed_or_raise(completion: object) -> ImageDetectionResult:
-        msg = completion.choices[0].message  # type: ignore[union-attr]
+    def _parsed_or_raise(completion: ParsedChatCompletion[ImageDetectionResult]) -> ImageDetectionResult:
+        msg = completion.choices[0].message
         refusal = getattr(msg, "refusal", None)
         if refusal:
             raise ValueError(str(refusal))
